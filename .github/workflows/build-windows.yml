@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Extract source ZIP
         shell: pwsh
@@ -18,7 +18,7 @@ jobs:
           Expand-Archive -Path OpinizLauncher-Source.zip -DestinationPath .
 
       - name: Install .NET 8
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 8.0.x
 
