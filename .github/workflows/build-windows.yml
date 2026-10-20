@@ -1,0 +1,29 @@
+
+name: Build Opiniz Launcher
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract source ZIP
+        shell: pwsh
+        run: |
+          Expand-Archive -Path OpinizLauncher-Source.zip -DestinationPath .
+
+      - name: Install .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Build Windows app
+        shell: pwsh
+        run: |
+          dotnet publish OpinizLauncher/OpinizLauncher/OpinizLauncher.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
+          
